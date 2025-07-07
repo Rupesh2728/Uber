@@ -39,7 +39,7 @@ Content-Type: application/json
 
 ### Responses
 
-### Success (201 Created)
+#### Success (201 Created)
 
 ```
 Status: 201 Created
@@ -57,7 +57,7 @@ Status: 201 Created
 }
 ```
 
-### Validation Error (400 Bad Request)
+#### Validation Error (400 Bad Request)
 
 ```
 Status: 400 Bad Request
@@ -73,7 +73,7 @@ Status: 400 Bad Request
 }
 ```
 
-### Missing Fields (400 Bad Request)
+#### Missing Fields (400 Bad Request)
 
 ```
 Status: 400 Bad Request
@@ -91,3 +91,93 @@ Status: 400 Bad Request
 - The `email` must be unique.
 - The password is securely hashed before storage.
 - The response includes a JWT token for authentication.
+
+---
+
+## `POST /users/login` Endpoint
+
+### Description
+
+Authenticates a user with email and password. Returns a JWT token and user data if credentials are valid.
+
+### Request Body
+
+The request body must be in JSON format and include the following fields:
+
+```
+{
+  "email": "string (valid email, required)",
+  "password": "string (min 6 chars, required)"
+}
+```
+
+### Example Request
+
+```
+POST /users/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+### Responses
+
+#### Success (200 OK)
+
+```
+Status: 200 OK
+{
+  "token": "<jwt_token>",
+  "user": {
+    "_id": "<user_id>",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+    // ...other user fields
+  }
+}
+```
+
+#### Validation Error (400 Bad Request)
+
+```
+Status: 400 Bad Request
+{
+  "errors": [
+    {
+      "msg": "Invalid Email",
+      "param": "email",
+      "location": "body"
+    },
+    // ...other errors
+  ]
+}
+```
+
+#### User Not Found (404 Not Found)
+
+```
+Status: 404 Not Found
+{
+  "message": "User not found"
+}
+```
+
+#### Invalid Credentials (401 Unauthorized)
+
+```
+Status: 401 Unauthorized
+{
+  "message": "Invalid credentials"
+}
+```
+
+### Notes
+
+- Returns a JWT token for authentication on successful login.
+- Password is not included in the response.
