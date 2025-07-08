@@ -181,3 +181,84 @@ Status: 401 Unauthorized
 
 - Returns a JWT token for authentication on successful login.
 - Password is not included in the response.
+
+---
+
+## `GET /users/profile` Endpoint
+
+### Description
+
+Returns the profile information of the currently authenticated user. Requires a valid JWT token (sent as a cookie or in the `Authorization` header as `Bearer <token>`).
+
+### Authentication
+
+- This endpoint is protected. You must be logged in and provide a valid token.
+
+### Example Request
+
+```
+GET /users/profile
+Authorization: Bearer <jwt_token>
+```
+
+### Success Response (200 OK)
+
+```
+Status: 200 OK
+{
+  "_id": "<user_id>",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com"
+  // ...other user fields
+}
+```
+
+### Error Responses
+
+- `401 Unauthorized` if the token is missing, invalid, or blacklisted.
+- `404 Not Found` if the user does not exist.
+
+### Notes
+
+- The token can be sent as a cookie (`token`) or in the `Authorization` header.
+- Returns the user object for the authenticated user.
+
+---
+
+## `GET /users/logout` Endpoint
+
+### Description
+
+Logs out the currently authenticated user by blacklisting the JWT token and clearing the authentication cookie.
+
+### Authentication
+
+- This endpoint is protected. You must be logged in and provide a valid token.
+
+### Example Request
+
+```
+GET /users/logout
+Authorization: Bearer <jwt_token>
+```
+
+### Success Response (200 OK)
+
+```
+Status: 200 OK
+{
+  "message": "Logged out successfully"
+}
+```
+
+### Error Responses
+
+- `401 Unauthorized` if the token is missing, invalid, or blacklisted.
+
+### Notes
+
+- The token is added to a blacklist and will no longer be valid for authentication.
+- The authentication cookie (`token`) is cleared on logout.
