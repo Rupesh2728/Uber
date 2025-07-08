@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {body} = require('express-validator');
-const {registerUser,loginUser}=require('../../controllers/user/user.controller')
+const {registerUser,loginUser, getUserProfile,logoutUser}=require('../../controllers/user/user.controller')
+const {authUser} = require('../../middlewares/auth.middleware');
 
 router.post('/register',[
     body('email').isEmail().withMessage('Invalid Email'),
@@ -14,5 +15,9 @@ router.post('/login',[
     body('email').isEmail().withMessage('Invalid Email'),
     body('password').isLength({min:6}).withMessage('Password must be 6 characters long'),
 ],loginUser);
+
+router.get('/profile',authUser,getUserProfile);
+
+router.get('/logout',authUser,logoutUser);
 
 module.exports=router;
