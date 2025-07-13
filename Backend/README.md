@@ -262,3 +262,125 @@ Status: 200 OK
 
 - The token is added to a blacklist and will no longer be valid for authentication.
 - The authentication cookie (`token`) is cleared on logout.
+
+---
+
+## `POST /captains/register` Endpoint
+
+### Description
+
+Registers a new captain in the system. This endpoint validates the input, hashes the password, creates a captain with vehicle details, and returns an authentication token along with the captain data.
+
+### Request Body
+
+The request body must be in JSON format and include the following fields:
+
+```
+{
+  "fullname": {
+    "firstname": "string (min 3 chars, required)",
+    "lastname": "string (optional, min 3 chars)"
+  },
+  "email": "string (valid email, required)",
+  "password": "string (min 6 chars, required)",
+  "vehicle": {
+    "color": "string (min 3 chars, required)",
+    "plate": "string (min 5 chars, required, unique)",
+    "capacity": "number (min 1, required)",
+    "vehicleType": "string (required, one of: car, motorcycle, auto)"
+  }
+}
+```
+
+### Example Request
+
+```
+POST /captains/register
+Content-Type: application/json
+
+{
+  "fullname": {
+    "firstname": "Alex",
+    "lastname": "Smith"
+  },
+  "email": "alex.smith@example.com",
+  "password": "securepass123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC1234",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Responses
+
+#### Success (201 Created)
+
+```
+Status: 201 Created
+{
+  "token": "<jwt_token>",
+  "captain": {
+    "_id": "<captain_id>",
+    "fullname": {
+      "firstname": "Alex",
+      "lastname": "Smith"
+    },
+    "email": "alex.smith@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+    // ...other captain fields
+  }
+}
+```
+
+#### Validation Error (400 Bad Request)
+
+```
+Status: 400 Bad Request
+{
+  "errors": [
+    {
+      "msg": "Color must be at least 3 characters long",
+      "param": "vehicle.color",
+      "location": "body"
+    },
+    // ...other errors
+  ]
+}
+```
+
+#### Captain Already Exists (400 Bad Request)
+
+```
+Status: 400 Bad Request
+{
+  "message": "Captain already exists"
+}
+```
+
+#### Missing Fields (400 Bad Request)
+
+```
+Status: 400 Bad Request
+{
+  "errors": [
+    {
+      "msg": "All fields are required"
+    }
+  ]
+}
+```
+
+### Notes
+
+- The `email` and `vehicle.plate` must be unique.
+- The password is securely hashed before storage.
+- The response includes a JWT token for authentication.
+- All vehicle details are required and validated.
