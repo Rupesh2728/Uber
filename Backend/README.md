@@ -384,3 +384,186 @@ Status: 400 Bad Request
 - The password is securely hashed before storage.
 - The response includes a JWT token for authentication.
 - All vehicle details are required and validated.
+
+---
+
+## `POST /captains/login` Endpoint
+
+### Description
+
+Authenticates a captain with email and password. Returns a JWT token and captain data if credentials are valid.
+
+### Request Body
+
+The request body must be in JSON format and include the following fields:
+
+```
+{
+  "email": "string (valid email, required)",
+  "password": "string (min 6 chars, required)"
+}
+```
+
+### Example Request
+
+```
+POST /captains/login
+Content-Type: application/json
+
+{
+  "email": "alex.smith@example.com",
+  "password": "securepass123"
+}
+```
+
+### Responses
+
+#### Success (200 OK)
+
+```
+Status: 200 OK
+{
+  "token": "<jwt_token>",
+  "captain": {
+    "_id": "<captain_id>",
+    "fullname": {
+      "firstname": "Alex",
+      "lastname": "Smith"
+    },
+    "email": "alex.smith@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+    // ...other captain fields
+  }
+}
+```
+
+#### Validation Error (400 Bad Request)
+
+```
+Status: 400 Bad Request
+{
+  "errors": [
+    {
+      "msg": "Invalid Email",
+      "param": "email",
+      "location": "body"
+    },
+    // ...other errors
+  ]
+}
+```
+
+#### Captain Does Not Exist (400 Bad Request)
+
+```
+Status: 400 Bad Request
+{
+  "message": "Captain doesnot exist"
+}
+```
+
+#### Invalid Password (401 Unauthorized)
+
+```
+Status: 401 Unauthorized
+{
+  "message": "Invalid Password"
+}
+```
+
+### Notes
+
+- Returns a JWT token for authentication on successful login.
+- Password is not included in the response.
+
+---
+
+## `GET /captains/profile` Endpoint
+
+### Description
+
+Returns the profile information of the currently authenticated captain. Requires a valid JWT token (sent as a cookie or in the `Authorization` header as `Bearer <token>`).
+
+### Authentication
+
+- This endpoint is protected. You must be logged in and provide a valid token.
+
+### Example Request
+
+```
+GET /captains/profile
+Authorization: Bearer <jwt_token>
+```
+
+### Success Response (200 OK)
+
+```
+Status: 200 OK
+{
+  "_id": "<captain_id>",
+  "fullname": {
+    "firstname": "Alex",
+    "lastname": "Smith"
+  },
+  "email": "alex.smith@example.com",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC1234",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+  // ...other captain fields
+}
+```
+
+### Error Responses
+
+- `401 Unauthorized` if the token is missing, invalid, or blacklisted.
+- `404 Not Found` if the captain does not exist.
+
+### Notes
+
+- The token can be sent as a cookie (`token`) or in the `Authorization` header.
+- Returns the captain object for the authenticated captain.
+
+---
+
+## `GET /captains/logout` Endpoint
+
+### Description
+
+Logs out the currently authenticated captain by blacklisting the JWT token and clearing the authentication cookie.
+
+### Authentication
+
+- This endpoint is protected. You must be logged in and provide a valid token.
+
+### Example Request
+
+```
+GET /captains/logout
+Authorization: Bearer <jwt_token>
+```
+
+### Success Response (200 OK)
+
+```
+Status: 200 OK
+{
+  "message": "Logged out successfully"
+}
+```
+
+### Error Responses
+
+- `401 Unauthorized` if the token is missing, invalid, or blacklisted.
+
+### Notes
+
+- The token is added to a blacklist and will no longer be valid for authentication.
+- The authentication cookie (`token`) is cleared on logout.
