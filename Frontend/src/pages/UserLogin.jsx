@@ -1,20 +1,38 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserDataContext } from "../context/UserContext";
 
 const UserLogin = () => {
   const [email,setemail] = useState('');
   const [password,setpassword] = useState('');
-  const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
+  const {user,setUser} = useContext(UserDataContext);
 
-
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
+    
+    const userData = {
       email: email,
       password: password
-    });
+    };
+
+    // console.log(userData);
+    
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`,userData);
+    if(response.status === 200) {
+      console.log("User logged in successfully");
+      setUser(response.data.user);
+      localStorage.setItem('token', response.data.token);
+      navigate('/home');
+    } else {
+      console.error("Login failed");
+    }
+
     setemail('');
     setpassword('');
+    
+ 
   }
   
   return (
@@ -38,7 +56,7 @@ const UserLogin = () => {
           onChange={(e) => setpassword(e.target.value)}
           placeholder="test@example.com"
          className="bg-[#eeeeee] mb-7 rounded px-4 py-2 w-full border text-lg placeholder:text-base" />
-        <button className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base">
+        <button onClick={submitHandler} className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base">
           Login
         </button>
          <p className="text-center">New here?

@@ -1,35 +1,51 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserDataContext } from "../context/UserContext";
+import axios from "axios";
+
 
 const UserSignUp = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
   const ans = useContext(UserDataContext);
+  const {user,setUser} = useContext(UserDataContext);
 
-  const submitHandler = (e) => {
+  const CreateAccountHandler = async (e) => {
     e.preventDefault();
     
-    setUserData({
+    const newUser = {
       email: email,
       password: password,
       fullname: {
-        firstName: firstName,
-        lastName: lastName,
+        firstname: firstName,
+        lastname: lastName,
       },
-    });
+    };
 
-    console.log(userData);
+    console.log(newUser);
+
+
+    const response = await  axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser);
+
+    if(response.status===201)
+    { 
+      setUser(response.data.user);
+      localStorage.setItem('token', response.data.token);
+      console.log("User registered successfully");
+      navigate('/home');
+    }
 
     setemail("");
     setpassword("");
     setFirstName("");
     setLastName("");
+
+
   };
 
   return (
@@ -84,8 +100,8 @@ const UserSignUp = () => {
             placeholder="test@example.com"
             className="bg-[#eeeeee] mb-6 rounded px-4 py-2 w-full border text-lg placeholder:text-base"
           />
-          <button className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base">
-           Sign up
+          <button onClick={CreateAccountHandler} className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base">
+           Create account
           </button>
           <p className="text-center">
             Already have an account?
