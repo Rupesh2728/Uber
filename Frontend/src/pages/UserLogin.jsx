@@ -24,7 +24,7 @@ const UserLogin = () => {
       console.log("User logged in successfully");
       setUser(response.data.user);
       localStorage.setItem('token', response.data.token);
-      navigate('/home');
+      navigate('/user-home');
     } else {
       console.error("Login failed");
     }

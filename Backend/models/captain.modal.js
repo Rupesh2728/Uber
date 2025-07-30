@@ -48,7 +48,7 @@ const captainSchema = new mongoose.Schema({
             type: String,
             required: true,
             unique: true,
-            match: [/^[A-Z0-9]{1,10}$/, 'Please enter a valid vehicle plate number']
+            // match: [/^[A-Z0-9]{1,10}$/, 'Please enter a valid vehicle plate number']
         },
 
         capacity : {

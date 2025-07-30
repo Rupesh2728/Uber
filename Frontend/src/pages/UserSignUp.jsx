@@ -12,7 +12,6 @@ const UserSignUp = () => {
   const [lastName, setLastName] = useState("");
   const navigate = useNavigate();
 
-  const ans = useContext(UserDataContext);
   const {user,setUser} = useContext(UserDataContext);
 
   const CreateAccountHandler = async (e) => {
@@ -37,7 +36,7 @@ const UserSignUp = () => {
       setUser(response.data.user);
       localStorage.setItem('token', response.data.token);
       console.log("User registered successfully");
-      navigate('/home');
+      navigate('/user-home');
     }
 
     setemail("");
