@@ -32,7 +32,6 @@ const UserLogin = () => {
     setemail('');
     setpassword('');
     
- 
   }
   
   return (
