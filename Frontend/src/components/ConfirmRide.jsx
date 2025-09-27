@@ -1,6 +1,6 @@
 import React from "react";
 
-const ConfirmRide = ({setconfrimRidePanel,setVehicleFound}) => {
+const ConfirmRide = ({pickup,destination,createRide,fare,vehicleType,setconfrimRidePanel,setVehicleFound}) => {
   return (
     <div>
       <div className="flex justify-between">
@@ -30,7 +30,7 @@ const ConfirmRide = ({setconfrimRidePanel,setVehicleFound}) => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                {pickup}
               </p>
             </div>
           </div>
@@ -40,7 +40,7 @@ const ConfirmRide = ({setconfrimRidePanel,setVehicleFound}) => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                {destination}
               </p>
             </div>
           </div>
@@ -48,7 +48,7 @@ const ConfirmRide = ({setconfrimRidePanel,setVehicleFound}) => {
           <div className="flex items-center gap-5 p-3 ">
             <i className="text-xl ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">$8.70</h3>
+              <h3 className="text-lg font-medium">${fare && fare[vehicleType]}</h3>
               <p className="text-sm text-gray-600 ">
                 Cash
               </p>
@@ -57,7 +57,7 @@ const ConfirmRide = ({setconfrimRidePanel,setVehicleFound}) => {
 
         </div>
       </div>
-      <button onClick={()=>{setVehicleFound(true);setconfrimRidePanel(false)}} className="w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg">
+      <button onClick={()=>{setVehicleFound(true);setconfrimRidePanel(false);createRide();}} className="w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg">
         Confirm
       </button>
     </div>

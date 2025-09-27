@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useContext,useEffect, useState } from 'react'
+import { CaptainDataContext } from '../context/CaptainContext.jsx'
+
 
 const CaptainDetails = () => {
+  
+  const [captain,setCaptain] = useState(null);
+
+  useEffect(()=>{
+     const captaindata = JSON.parse(localStorage.getItem('captain'));
+     setCaptain(captaindata);
+  },[])
+  
   return (
     <>
         <div className='flex items-center justify-between'>
           <div className='flex items-center justify-start gap-3'>
             <img className='h-10 w-10 rounded-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAp3Z1hXfTVTKtbw3vE75-rtfr1ZCFcPSw4A&s" alt="" />
-            <h4 className='txt-lg font-medium'>Harsh Patel</h4>
+            <h4 className='txt-lg font-medium capitalize'>{captain && captain.fullname.firstname + " " + captain.fullname.lastname}</h4>
           </div>
 
           <div>

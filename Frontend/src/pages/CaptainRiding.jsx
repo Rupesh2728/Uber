@@ -1,13 +1,18 @@
 import React,{useState,useRef} from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import FinishRidePopUp from "../components/FinishRidePopUp";
+import LiveTracking from "../components/LiveTracking";
 
 const CaptainRiding = () => {
 
   const [finishRidePanel,setfinishRidePanel] = useState(false);
   const finishRidePanelRef = useRef(null);
+
+  const location = useLocation();
+  const {ride} = location.state || {}; // Accessing passed state
 
     useGSAP(() => {
     gsap.to(finishRidePanelRef.current, {
@@ -33,11 +38,7 @@ const CaptainRiding = () => {
       </div>
 
       <div className="h-5/6">
-        <img
-          alt="maps image"
-          className="h-full w-full object-cover"
-          src="https://i.pinimg.com/736x/d2/1b/e0/d21be0368da4fcfa395092c0ad839fbc.jpg"
-        />
+        <LiveTracking />
       </div>
 
       <div onClick={()=>{
@@ -60,7 +61,7 @@ const CaptainRiding = () => {
       <div ref={finishRidePanelRef}
         className="fixed z-10 bottom-0 translate-y-full bg-white p-3 w-full"
       >
-        <FinishRidePopUp setfinishRidePanel={setfinishRidePanel}/>
+        <FinishRidePopUp rideData={ride} setfinishRidePanel={setfinishRidePanel}/>
       </div>
 
     </div>

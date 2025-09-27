@@ -1,6 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
-const FinishRidePopUp = ({ setfinishRidePanel }) => {
+
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+const FinishRidePopUp = ({ rideData, setfinishRidePanel }) => {
+  const navigate = useNavigate();
+  const onClickHandler = async() => {
+    try{
+      const token = localStorage.getItem("token");
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/end-ride`,{
+        rideId : rideData._id
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      if(response.status === 200)
+      {
+        navigate('/captain-home');
+      }
+    }
+
+    catch(err)
+    {
+      console.log(err);
+    }
+  }
+
+
   return (
     <div className="h-screen">
       <div className="mt-2 flex justify-between">
@@ -25,7 +51,7 @@ const FinishRidePopUp = ({ setfinishRidePanel }) => {
             src="https://media.istockphoto.com/id/2006436002/video/happy-confident-and-portrait-of-indian-man-in-office-with-creative-professional-at-tech.jpg?s=640x640&k=20&c=vcKAWd0sGJpV3xR0AK1RCM7zTEpFUcBhQEXbNvN1M78="
             alt=""
           />
-          <h2 className="text-lg font-medium">Mani Kumar</h2>
+          <h2 className="text-lg font-medium">{rideData?.user.fullname.firstname}</h2>
         </div>
         <h5 className="text-lg font-semibold">1.2 Miles</h5>
       </div>
@@ -37,7 +63,7 @@ const FinishRidePopUp = ({ setfinishRidePanel }) => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+               {rideData?.pickup}
               </p>
             </div>
           </div>
@@ -47,7 +73,7 @@ const FinishRidePopUp = ({ setfinishRidePanel }) => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                 {rideData?.destination}
               </p>
             </div>
           </div>
@@ -55,7 +81,7 @@ const FinishRidePopUp = ({ setfinishRidePanel }) => {
           <div className="flex items-center gap-5 p-3 ">
             <i className="text-xl ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">$8.70</h3>
+              <h3 className="text-lg font-medium">${rideData?.fare}</h3>
               <p className="text-sm text-gray-600 ">Cash</p>
             </div>
           </div>
@@ -63,12 +89,12 @@ const FinishRidePopUp = ({ setfinishRidePanel }) => {
       </div>
 
       <div className="mt-6">
-        <Link
-          to="/captain-home"
+        <button
+          onClick={onClickHandler}
           className="w-full flex justify-center mt-5 bg-green-600 text-lg text-white font-semibold p-3 rounded-lg"
         >
           Finish Ride
-        </Link>
+        </button>
 
         <p className=" mt-10 txt-xs">Click on finish ride button if you have completed payment.</p>
 

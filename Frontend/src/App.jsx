@@ -23,11 +23,11 @@ const App = () => {
            <Route path='/captain-login' element={<CaptainLogin/>} />
            <Route path='/captain-signup' element={<CaptainSignUp/>} />
            <Route path='/user-home' element={<UserProtectWrapper><UserHome/></UserProtectWrapper>} />
-           <Route path='/user-riding' element={<UserRiding/>} />
+           <Route path ='/user-riding' element={<UserRiding/>} />
            <Route path='/user-logout' element={<UserLogout/>} />
            <Route path='/captain-home' element={<CaptainProtectWrapper><CaptainHome/></CaptainProtectWrapper>} />
            <Route path='/captain-logout' element={<CaptainLogout/>} />  
-          <Route path='/captain-riding' element={<CaptainRiding/>} />  
+          <Route path='/captain-riding' element={<CaptainRiding/>} />      
        </Routes>
     </div>
   )

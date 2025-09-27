@@ -1,6 +1,6 @@
 import React from 'react'
 
-const WaitingforDriver = () => {
+const WaitingforDriver = ({rideDetails}) => {
   return (
     <div>
       <div className='flex items-center justify-between'>
@@ -11,12 +11,13 @@ const WaitingforDriver = () => {
         />
 
         <div className='text-right'>
-          <h2 className='text-lg font-medium'>Rupesh</h2>
-          <h4 className='text-xl font-semibold'>MP04 AB 1234</h4>
-          <p className='text-sm text-gray-600 '>Hundai verna</p>
+          <h2 className='text-lg font-medium'>{rideDetails?.captain.fullname.firstname}</h2>
+          <h4 className='text-xl font-semibold'>{rideDetails?.captain.vehicle.plate}</h4>
+          <p className='text-sm text-gray-600 '>{rideDetails?.captain.vehicle.color}</p>
+          <h1>{rideDetails?.otp}</h1>
         </div>
       </div>
-
+ 
       <div className="flex gap-5 flex-col justify-between items-center">
         <div className="w-full mt-2">
 
@@ -25,7 +26,7 @@ const WaitingforDriver = () => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                {rideDetails?.pickup}
               </p>
             </div>
           </div>
@@ -35,7 +36,7 @@ const WaitingforDriver = () => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                {rideDetails?.destination}
               </p>
             </div>
           </div>
@@ -52,9 +53,9 @@ const WaitingforDriver = () => {
 
         </div>
       </div>
-      <button onClick={()=>{setVehicleFound(true);setconfrimRidePanel(false)}} className="w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg">
+      {/* <button onClick={()=>{setVehicleFound(true);setconfrimRidePanel(false)}} className="w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg">
         Confirm
-      </button>
+      </button> */}
     </div>
   )
 }

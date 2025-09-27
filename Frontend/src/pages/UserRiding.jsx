@@ -1,15 +1,34 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useContext } from 'react'
+import { Link} from 'react-router-dom'
+import { SocketContext } from '../context/SocketContext'
+import { useNavigate } from 'react-router-dom'
 
-const UserRiding = () => {
+const UserRiding = ({rideDetails}) => {
+  const navigate = useNavigate();
+  const { receiveMessage, socket } = useContext(SocketContext);
+
+  useEffect(() => {
+    receiveMessage('ride-completed', (data) => {
+      console.log("Ride Completed", data);
+      navigate('/user-home');
+    });
+    
+  }, []);
+
+
+  const onClickHandler = ()=>{
+    navigate('/user-home');
+  }
+  
   return (
    <div className='h-screen'>
     
-    <Link to='/user-home' className='fixed right-2 top-4 h-10 w-10 bg-white flex items-center justify-center rounded-full'>
+    <p onClick={onClickHandler} className='fixed right-2 top-4 h-10 w-10 bg-white flex items-center justify-center rounded-full'>
         <i className="text-lg font-medium ri-home-3-line"></i>
-    </Link>
+    </p>
     
-    <div className='h-1/2'>
+    <div className='h-[60%]'>
          <img
           alt="maps image"
           className="h-full w-full object-cover"
@@ -17,7 +36,7 @@ const UserRiding = () => {
         />
     </div>
 
-    <div className='h-1/2 p-4 pt-6'>
+    <div className='h-[40%] p-4 pt-6'>
       <div className='flex items-center justify-between'>
          <img
           alt="img"
@@ -26,9 +45,9 @@ const UserRiding = () => {
         />
 
         <div className='text-right'>
-          <h2 className='text-lg font-medium'>Rupesh</h2>
-          <h4 className='text-xl font-semibold'>MP04 AB 1234</h4>
-          <p className='text-sm text-gray-600 '>Hundai verna</p>
+          <h2 className='text-lg font-medium'>{rideDetails?.user.fullname.firstname}</h2>
+          <h4 className='text-xl font-semibold'>{rideDetails?.captain.vehicle.plate}</h4>
+          <p className='text-sm text-gray-600 '>{rideDetails?.captain.vehicle.color}</p>
         </div>
       </div>
 
@@ -40,7 +59,7 @@ const UserRiding = () => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                {rideDetails?.destination}
               </p>
             </div>
           </div>
@@ -49,7 +68,7 @@ const UserRiding = () => {
           <div className="flex items-center gap-5 p-3 ">
             <i className="text-xl ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">$8.70</h3>
+              <h3 className="text-lg font-medium">${rideDetails?.fare}</h3>
               <p className="text-sm text-gray-600 ">
                 Cash
               </p>

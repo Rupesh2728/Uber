@@ -1,16 +1,16 @@
 import React from 'react'
 
-const VehiclePanel = ({setPanelOpen,setconfrimRidePanel,setVechiclePanel}) => {
+const VehiclePanel = ({selectVehicle,fare,setconfrimRidePanel,setVehiclePanel}) => {
   return (
     <>
        <div className="flex justify-between">
          <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
 
         <h4 onClick={()=>{
-        setVechiclePanel(false);
+        setVehiclePanel(false);
       }}> <i className="ri-arrow-down-line text-[1.5rem]"></i></h4>
        </div>
-        <div onClick={()=>{setconfrimRidePanel(true);setVechiclePanel(false)}} className="flex justify-between py-2 px-2 mt-2 active:border-black mb-2 border-2 rounded-xl w-full items-center ">
+        <div onClick={()=>{setconfrimRidePanel(true);setVehiclePanel(false);selectVehicle('car')}} className="flex justify-between py-2 px-2 mt-2 active:border-black mb-2 border-2 rounded-xl w-full items-center ">
           <div className="flex">
             <img
             className="w-[6rem] h-[4rem]"
@@ -38,10 +38,10 @@ const VehiclePanel = ({setPanelOpen,setconfrimRidePanel,setVechiclePanel}) => {
           </div>
           </div>
 
-          <h2 className="text-xl font-semibold">$8.70</h2>
+          <h2 className="text-xl font-semibold">${fare && fare.car}</h2>
         </div>
 
-          <div onClick={()=>{setconfrimRidePanel(true);setVechiclePanel(false)}} className="flex justify-between py-2 px-2 mt-3 active:border-black mb-2 border-2 rounded-xl w-full items-center ">
+          <div onClick={()=>{setconfrimRidePanel(true);setVehiclePanel(false);selectVehicle('motorcycle')}} className="flex justify-between py-2 px-2 mt-3 active:border-black mb-2 border-2 rounded-xl w-full items-center ">
          <div className="flex">
            <img
             className="w-[6rem] h-[3.5rem]"
@@ -69,7 +69,7 @@ const VehiclePanel = ({setPanelOpen,setconfrimRidePanel,setVechiclePanel}) => {
           </div>
          </div>
 
-          <h2 className="text-xl font-semibold">$8.70</h2>
+          <h2 className="text-xl font-semibold">${fare && fare.motorcycle}</h2>
         </div>
       </>
   )

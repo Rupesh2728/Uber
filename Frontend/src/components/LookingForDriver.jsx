@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LookingForDriver = ({setVehicleFound}) => {
+const LookingForDriver = ({setVehicleFound,pickup,destination,fare,vehicleType}) => {
   return (
    <div>
       <div className="flex justify-between">
@@ -23,7 +23,7 @@ const LookingForDriver = ({setVehicleFound}) => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                {pickup}
               </p>
             </div>
           </div>
@@ -33,7 +33,7 @@ const LookingForDriver = ({setVehicleFound}) => {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm text-gray-600 ">
-                Raghu gardens Road, Vijayawada
+                {destination}
               </p>
             </div>
           </div>
@@ -41,7 +41,7 @@ const LookingForDriver = ({setVehicleFound}) => {
           <div className="flex items-center gap-5 p-3 ">
             <i className="text-xl ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">$8.70</h3>
+              <h3 className="text-lg font-medium">${fare && fare[vehicleType]}</h3>
               <p className="text-sm text-gray-600 ">
                 Cash
               </p>
