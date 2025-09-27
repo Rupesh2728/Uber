@@ -15,7 +15,8 @@
 <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="80" height="80"/> </a>
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="80" height="80"/> </a>
 <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="80" height="80"/> </a>
-
+<a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7gp2mNb-Vexc_KMgTBffmmXhkR0yqVS5F6w&s" target="_blank" rel="noreferrer"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7gp2mNb-Vexc_KMgTBffmmXhkR0yqVS5F6w&s" alt="git" width="80" height="80"/> </a>
+<a href="https://cdn.prod.website-files.com/67053868fc01e494462e71c9/670d4874817428bdb8b85387_6582afc14d6b07048d216746_gsap-logo.svg" target="_blank" rel="noreferrer"> <img src="https://cdn.prod.website-files.com/67053868fc01e494462e71c9/670d4874817428bdb8b85387_6582afc14d6b07048d216746_gsap-logo.svg" alt="git" width="80" height="80"/> </a>
 <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="80" height="80"/> </a>
 
 </p>
@@ -38,6 +39,8 @@
 
 - Finally users can book a ride and confirm the ride with captain using **OTP**
 
+- Utilized **express-validator middleware** to validate the inputs coming from the client instead of manually defining them
+
 <h3 align="left">Captain : </h3>
 
 - Captain can also Signin/Signup giving all the necessary details such as vehicle details, personal information **(**implemented using JWT**)**
@@ -46,7 +49,7 @@
 
 - Captain can accept and confirm the ride **using the OTP** mentioned by the User
 
-- Implemented interactive Cool-UI, integrated seemlessly with **GoogleMaps API**
+- Implemented interactive Cool-UI using **useGSAP()** hook in **ReactJS**, integrated seemlessly with **GoogleMaps API**
 
 - Utilized **Socket.io** to send real-time updates to user such as ride confirmation etc.
 
@@ -90,6 +93,7 @@ nodemon server.js
 
 - 👨‍💻 Project is available at [https://github.com/Rupesh2728/Uber.git]
   
+
 
 
 
