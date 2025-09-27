@@ -26,53 +26,41 @@
 
 <h3 align="left">User : </h3> 
 
-- SignIn/SignUp
+- Utilized **JWT** for user's Signin/Signup
   
-- Search for location
+- Integrated **google maps API** seemlessly where users can find their desired location using the search bar
 
-- Use current location
+- Integrated **socket.io** for seemless real-time communication between User and Captain
 
-- Explore multiple ride options (Car,Bike)
+- Additionally, the option of **'use current location'** is added such that, the users current location's suggestions get displayed
 
-- Book a ride
+- User can also explore multiple ride options such as car and bike which **a reasonable pricing formula**
+
+- Finally users can book a ride and confirm the ride with captain using **OTP**
 
 <h3 align="left">Captain : </h3>
 
-- Rent movies to play in theatre
+- Captain can also Signin/Signup giving all the necessary details such as vehicle details, personal information **(**implemented using JWT**)**
 
-- Add or remove a movie from theatre
+- Captain should wait for the ride and should be present in a radius of 5 miles to get the ride from the User
 
-- Screen Seating Arrangement
+- Captain can accept and confirm the ride **using the OTP** mentioned by the User
 
-- Schedule shows
+- Implemented interactive Cool-UI, integrated seemlessly with **GoogleMaps API**
 
-- Add or remove Snacks
+- Utilized **Socket.io** to send real-time updates to user such as ride confirmation etc.
 
-- Maintain theatre profile
+- Current location gets fetched and gets updated for every few seconds in the database
 
-- Observe theatre reviews
-
-<h3 align="center"> General Features </h3> 
-
-- Login and Register, **Users and theatres can login and register**
-
-- Clean code and structure, **Well organised code, using MVC and REST Architecture in the server**
-
-- **Well designed and cool,interactive UI**
-
-- **Deployed both Frontend and Backend, on Vercel and Render respectively**
-
-- Included various Third-party Libraries,**Express,Mongoose,dotenv,Morgan,CORS,Concurrently etc.**
+- Utilized **MongoDB database** for effectively storing the data (Captain, User, rides etc.)
 
 <h2 align="left">Website Video</h2>
 
-- Presented here is a brief overview video of our website, providing insights into its some of the functionalities and design.
+- Presented here is a brief overview video of the website, providing insights into its some of the functionalities and design.
 
 - Please take a moment to watch and gain an understanding of the platform's offerings.
 
-- For a more comprehensive understanding, please explore the website directly at https://service-at-your-seat.vercel.app
-
-https://github.com/user-attachments/assets/e12361c7-7af9-4a3a-85d1-58417c3daa9b
+https://github.com/user-attachments/assets/9e9d792a-3867-49e6-8140-b7046f5d7b65
 
 <h2 align="left">Installation</h2>
 <h3 align="center">To get started with this project, clone the repository or download the zip file</h3>
@@ -102,6 +90,7 @@ nodemon server.js
 
 - 👨‍💻 Project is available at [https://github.com/Rupesh2728/Uber.git]
   
+
 
 
 
